@@ -1,0 +1,28 @@
+# Redirecciones 301 para duplicados de gsdistribuidor.com
+#
+# Pega este bloque en el archivo .htaccess de la raíz del sitio
+# (SiteGround: Site Tools > Site > File Manager > public_html/.htaccess),
+# ANTES de la línea "# BEGIN WordPress". Haz una copia del archivo antes.
+#
+# Paso 1: revisa en WordPress > Ajustes > Enlaces permanentes > "Base de productos"
+# cuál prefijo usa hoy la tienda: /producto/ o /product/.
+# Paso 2: deja activa SOLO la opción que coincida y borra la otra.
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# --- Sculptra: tres URLs para el mismo producto -----------------------------
+# Deja una sola ficha (la que tenga más ventas o reseñas) y cambia DESTINO
+# por su URL. Borra la línea que apunte a esa misma ficha.
+# RewriteRule ^producto/sculptra/?$         /DESTINO/ [R=301,L]
+# RewriteRule ^producto/sculptra-sanofi/?$  /DESTINO/ [R=301,L]
+# RewriteRule ^product/sculptra-sanofi/?$   /DESTINO/ [R=301,L]
+
+# --- OPCIÓN A: la base actual es /producto/  --------------------------------
+# Manda todo lo viejo en /product/... a /producto/...
+# (no afecta /product-tag/ ni /product-category/ porque exige la barra)
+RewriteRule ^product/(.+)$ /producto/$1 [R=301,L]
+
+# --- OPCIÓN B: la base actual es /product/  ---------------------------------
+# RewriteRule ^producto/(.+)$ /product/$1 [R=301,L]
+</IfModule>
